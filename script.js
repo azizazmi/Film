@@ -1,29 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('loginForm');
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-    const messageElement = document.getElementById('message');
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
 
-    // Username dan Password yang sudah ditentukan
-    const correctUsername = "superadmin";
-    const correctPassword = "admin123";
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const message = document.getElementById('message');
 
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Mencegah form untuk refresh halaman
-
-        const enteredUsername = usernameInput.value;
-        const enteredPassword = passwordInput.value;
-
-        if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
-            messageElement.textContent = "Login Berhasil!";
-            messageElement.className = "message success";
-            setTimeout(function() {
-                window.location.href = "dashboard.html"; // Ini akan mengarahkan ke halaman index.html
-            }, 1500); // Tunda 1.5 detik sebelum mengarahkan
-
-        } else {
-            messageElement.textContent = "Username atau password salah.";
-            messageElement.className = "message error";
-        }
-    });
+  // Validasi login sederhana
+  if (username === 'admin' && password === '1234') {
+    // Login berhasil, redirect ke dashboard.html
+    window.location.href = "dashboard.html";
+  } else {
+    // Gagal login
+    message.textContent = "Username atau password salah!";
+  }
 });

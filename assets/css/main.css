@@ -205,14 +205,6 @@ h6 {
     font-size: 20px;
   }
 
-  .header .header-social-links {
-    order: 2;
-  }
-
-  .header .header-social-links a {
-    font-size: 16px;
-  }
-
   .header .navmenu {
     order: 3;
   }
@@ -329,8 +321,7 @@ h6 {
     opacity: 1;
     top: 0;
     left: -100%;
-    visibility: visible;
-  }
+    visibility: visible;  }
 }
 
 /* Navmenu - Mobile */
@@ -343,6 +334,22 @@ h6 {
     cursor: pointer;
     transition: color 0.3s;
   }
+
+  /* Pastikan CSS ini dimuat SETELAH Bootstrap CSS Anda */
+
+.login-admin-btn {
+    /* Ganti nilai '38px' dengan tinggi yang Anda temukan dari inspeksi tombol Search */
+    height: 18px;
+    
+    /* Gunakan flexbox untuk memastikan teks terpusat secara vertikal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Opsional: Sesuaikan padding agar sama dengan tombol Bootstrap standar */
+    /* Ini adalah padding default Bootstrap untuk .btn */
+    padding: 0.375rem 0.75rem; 
+}
 
   .navmenu {
     padding: 0;
@@ -779,12 +786,13 @@ section,
 --------------------------------------------------------------*/
 .hero {
   width: 100%;
-  min-height: 30vh;
+  height:600px;
   position: relative;
-  padding: 120px 0 60px 0;
+  padding: 10px 0 10px 0;
   display: flex;
-  align-items: center;
+  align-items: center;\
 }
+
 
 .hero h2 {
   margin: 0 0 10px 0;
