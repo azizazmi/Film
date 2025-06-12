@@ -1,6 +1,34 @@
 <?php
 session_start();
+include 'db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $conn->real_escape_string($_POST['username']);
+    $password = $_POST['password'];
+
+    $result = $conn->query("SELECT * FROM users WHERE username = '$username'");
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        // Verifikasi password yang di-hash
+        if (password_verify($password, $row['password'])) {
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role'] = $row['role'];
+
+            // Redirect berdasarkan role
+            if ($row['role'] === 'admin') {
+                header("Location: admin_dashboard.php");
+            } else {
+                header("Location: ../main/home.php");
+            }
+            exit;
+        }
+    }
+
+    $error = "Username atau password salah!";
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,27 +84,18 @@ session_start();
           <div class="card shadow-lg p-4 rounded-4 border-0 bg-dark text-light">
             <div class="card-body">
               <h3 class="text-center mb-4">Login</h3>
-
-              <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-danger" role="alert">
-                  <?= htmlspecialchars($_SESSION['error']) ?>
-                </div>
-                <?php unset($_SESSION['error']); ?>
-              <?php endif; ?>
-
-              <form action="proses_login.php" method="post">
-                <div class="form-group mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" name="username" class="form-control rounded-3 bg-secondary text-light border-0" id="username" required>
-                </div>
-                <div class="form-group mb-4">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" name="password" class="form-control rounded-3 bg-secondary text-light border-0" id="password" required>
-                </div>
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-outline-success btn-sm px-3 py-1 me-2 rounded-3">Login</button>
-                </div>
-              </form>
+               <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <input type="text" name="username" required class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" name="password" required class="form-control">
+                    </div>
+                    <button class="btn btn-primary">Login</button>
+                </form>
               <div class="text-center mt-3">
                 Belum punya akun? <a href="register.php" class="text-info text-decoration-none">Register sekarang</a>
             </div>

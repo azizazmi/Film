@@ -1,8 +1,6 @@
 <?php
 session_start();
-
-// Cek apakah user sudah login
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit;
 }

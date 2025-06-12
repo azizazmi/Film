@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
+    header("Location: login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +19,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -20,14 +28,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Cardo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: PhotoFolio
@@ -68,7 +76,7 @@
           </div>
         </form>
         <div class="d-flex align-items-center">
-          <a href="forms/login.php" class="btn btn-outline-success btn-sm px-3 py-1 me-2">Login</a>
+          <a href="form/logout.php" class="btn btn-outline-success btn-sm px-3 py-1 me-2">Logout</a>
         </div>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -87,13 +95,13 @@
       <div class="carousel-inner rounded shadow">
 
         <div class="carousel-item active">
-          <img class="d-block w-100" src="assets/img/aset/danur.jpg" alt="First slide">
+          <img class="d-block w-100" src="../assets/img/aset/danur.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="assets/img/aset/evil dead rise.jpg" alt="Second slide">
+          <img class="d-block w-100" src="../assets/img/aset/evil dead rise.jpg" alt="Second slide">
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="assets/img/aset/kemah terlarang.jpg" alt="Third slide">
+          <img class="d-block w-100" src="../assets/img/aset/kemah terlarang.jpg" alt="Third slide">
         </div>
 
       </div>
@@ -121,10 +129,10 @@
 
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="assets/img/aset/danur.jpg" class="img-fluid fixed-size-img" alt="danur">
+              <img src="../assets/img/aset/danur.jpg" class="img-fluid fixed-size-img" alt="danur">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="https://youtu.be/9EsGdyVx6HM?si=U5ikJ8wYRxfyJDkN" title="Danur 3" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div>
@@ -132,70 +140,70 @@
 
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="assets/img/aset/evil dead rise.jpg" class="img-fluid fixed-size-img" alt="Evil Dead Rise">
+              <img src="../assets/img/aset/evil dead rise.jpg" class="img-fluid fixed-size-img" alt="Evil Dead Rise">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="https://youtu.be/smTK_AeAPHs?si=Inj-arNLY9WdVO5y" title="Evil Dead Rise" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="assets/img/aset/kemah terlarang.jpg" class="img-fluid fixed-size-img" alt="kemah terlarang">
+              <img src="../assets/img/aset/kemah terlarang.jpg" class="img-fluid fixed-size-img" alt="kemah terlarang">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="https://youtu.be/vjNwV4Wx5O0?si=btl5zJLsQHMLx6If" title="Kemah Terlarang" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="assets/img/aset/home sweet loan.jpg" class="img-fluid fixed-size-img" alt="home sweet loan">
+              <img src="../assets/img/aset/home sweet loan.jpg" class="img-fluid fixed-size-img" alt="home sweet loan">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="https://youtu.be/rWsnLS0Q7G0?si=chsfs369iv61rGIa" title="Home Sweet Loan" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="assets/img/aset/kakabos.jpg" class="img-fluid fixed-size-img" alt="kakabos">
+              <img src="../assets/img/aset/kakabos.jpg" class="img-fluid fixed-size-img" alt="kakabos">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="https://youtu.be/LXRnwwpXz6s?si=uXqDxjMffYfMesbY" title="KakaBos" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="assets/img/aset/mirachel in cell no 7.jpg" class="img-fluid fixed-size-img" alt="mirachel in cell no 7">
+              <img src="../assets/img/aset/mirachel in cell no 7.jpg" class="img-fluid fixed-size-img" alt="mirachel in cell no 7">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="https://youtu.be/0uf6QUacVgs?si=2ekVPLRK9oCivUVl" title="Mirache In Cell No 7" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="assets/img/aset/under paris.jpg" class="img-fluid fixed-size-img"  style="height: 200px; object-fit: cover;" alt="Under Paris">
+              <img src="../assets/img/aset/under paris.jpg" class="img-fluid fixed-size-img"  style="height: 200px; object-fit: cover;" alt="Under Paris">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="https://youtu.be/jnCefPQIH98?si=wyXtw1NI-lr0uAxr" title="Under Paris" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div><!-- End Gallery Item -->
 
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="assets/img/aset/hijack.png" class="img-fluid fixed-size-img" alt="Hijack 1971">
+              <img src="../assets/img/aset/hijack.png" class="img-fluid fixed-size-img" alt="Hijack 1971">
               <div class="gallery-links d-flex align-items-center justify-content-center">
                 <a href="https://youtu.be/UxyutkXQnvA?si=VnaJV9OLQTcrOrsp" title="Hijack 1971" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div><!-- End Gallery Item -->
@@ -254,7 +262,7 @@
                   Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                  <img src="../assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
                   <h3>Saul Goodman</h3>
                   <h4>Ceo &amp; Founder</h4>
                 </div>
@@ -270,7 +278,7 @@
                   Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                  <img src="../assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
                   <h3>Sara Wilsson</h3>
                   <h4>Designer</h4>
                 </div>
@@ -286,7 +294,7 @@
                   Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                  <img src="../assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
                   <h3>Jena Karlis</h3>
                   <h4>Store Owner</h4>
                 </div>
@@ -302,7 +310,7 @@
                   Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                  <img src="../assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
                   <h3>Matt Brandon</h3>
                   <h4>Freelancer</h4>
                 </div>
@@ -318,7 +326,7 @@
                   Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
                 </p>
                 <div class="profile mt-auto">
-                  <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                  <img src="../assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
                   <h3>John Larson</h3>
                   <h4>Entrepreneur</h4>
                 </div>
@@ -354,14 +362,14 @@
 
   <!-- Vendor JS Files -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="../assets/js/main.js"></script>
 
 </body>
 

@@ -1,6 +1,31 @@
 <?php
-session_start();
+include 'db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $conn->real_escape_string($_POST['email']);
+    $username = $conn->real_escape_string($_POST['username']);
+    $password = $_POST['password'];
+
+    if (empty($email) || empty($username) || empty($password)) {
+        $error = "Semua field wajib diisi!";
+    } else {
+        $cek = $conn->query("SELECT * FROM users WHERE username = '$username'");
+        if ($cek->num_rows > 0) {
+            $error = "Username sudah digunakan!";
+        } else {
+            // Hash password sebelum disimpan
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $conn->query("INSERT INTO users (email, username, password, role)
+                          VALUES ('$email', '$username', '$hashedPassword', 'user')");
+
+            header("Location: login.php");
+            exit;
+        }
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +33,7 @@ session_start();
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Login - NontonApa Bootstrap Template</title>
+  <title>Register - NontonApa</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -57,34 +82,25 @@ session_start();
             <div class="card-body">
               <h3 class="text-center mb-4">Register</h3>
 
-
-            <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['error']) ?></div>
-                <?php unset($_SESSION['error']); ?>
-              <?php endif; ?>
-
-              <?php if (isset($_SESSION['success'])): ?>
-                <div class="alert alert-success"><?= htmlspecialchars($_SESSION['success']) ?></div>
-                <?php unset($_SESSION['success']); ?>
-              <?php endif; ?>
-
-              <form action="proses_register.php" method="post">
-                <div class="form-group mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" name="username" class="form-control rounded-3 bg-secondary text-light border-0" required>
-                </div>
-                <div class="form-group mb-4">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" name="password" class="form-control rounded-3 bg-secondary text-light border-0" required>
-                </div>
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-outline-primary rounded-3">Register</button>
-                  
-                </div>
+              <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
+              <form method="POST">
+                  <div class="mb-3">
+                      <label>Email</label>
+                      <input type="email" name="email" required class="form-control">
+                  </div>
+                  <div class="mb-3">
+                      <label>Username</label>
+                      <input type="text" name="username" required class="form-control">
+                  </div>
+                  <div class="mb-3">
+                      <label>Password</label>
+                      <input type="password" name="password" required class="form-control">
+                  </div>
+                  <button class="btn btn-primary">Register</button>
               </form>
 
               <div class="text-center mt-3">
-                Sudah punya akun? <a href="login.php" class="text-info text-decoration-none">Login</a>
+                Sudah punya akun? <a href="login.php" class="text-info text-decoration-none">Login disini</a>
               </div>
             </div>
           </div>
