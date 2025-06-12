@@ -351,6 +351,17 @@ h6 {
     padding: 0.375rem 0.75rem; 
 }
 
+.login-section {
+  --default-color: #ffffff;
+  --background-color: color-mix(in srgb, var(--default-color), transparent 95%);
+  background-color: var(--background-color);
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  color: var(--default-color);
+  font-size: 14px;
+  padding: 40px 0;
+  min-height: 100vh;
+}
+
   .navmenu {
     padding: 0;
     z-index: 9997;
