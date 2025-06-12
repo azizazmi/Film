@@ -1,7 +1,6 @@
 <?php
-file_put_contents("debug.log", "proses_login dipanggil: " . $_SERVER['REQUEST_METHOD'] . PHP_EOL, FILE_APPEND);
 session_start();
-include 'koneksi.php'; // Asumsikan koneksi.php juga ada di folder forms/
+include 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
@@ -9,43 +8,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($username) || empty($password)) {
         $_SESSION['error'] = "Username dan password harus diisi!";
-        header("Location: login.php"); // karena satu folder, cukup nama file saja
-        exit;
-    }
-
-    $query = "SELECT * FROM user WHERE username = ?";
-    $stmt = $conn->prepare($query);
-    if (!$stmt) {
-        $_SESSION['error'] = "Terjadi kesalahan server.";
         header("Location: login.php");
         exit;
     }
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result->num_rows === 1) {
-        $user = $result->fetch_assoc();
+    // Cek login sebagai admin
+    $stmtAdmin = $conn->prepare("SELECT * FROM admin WHERE username = ?");
+    $stmtAdmin->bind_param("s", $username);
+    $stmtAdmin->execute();
+    $adminResult = $stmtAdmin->get_result();
 
+    if ($adminResult->num_rows === 1) {
+        $admin = $adminResult->fetch_assoc();
+        if (password_verify($password, $admin['password'])) {
+            session_regenerate_id(true);
+            $_SESSION['username'] = $username;
+            $_SESSION['role'] = 'admin';
+            header("Location: dashboard.php");
+            exit;
+        }
+    }
+
+    // Cek login sebagai user
+    $stmtUser = $conn->prepare("SELECT * FROM user WHERE username = ?");
+    $stmtUser->bind_param("s", $username);
+    $stmtUser->execute();
+    $userResult = $stmtUser->get_result();
+
+    if ($userResult->num_rows === 1) {
+        $user = $userResult->fetch_assoc();
         if (password_verify($password, $user['password'])) {
             session_regenerate_id(true);
             $_SESSION['username'] = $username;
-            header("Location: dashboard.php"); // arahkan sesuai letak file dashboard.php
-            exit;
-        } else {
-            $_SESSION['error'] = "Password salah!";
-            header("Location: login.php");
+            $_SESSION['role'] = 'user';
+            header("Location: ../Home.html");
             exit;
         }
-    } else {
-        $_SESSION['error'] = "Username tidak ditemukan!";
-        header("Location: login.php");
-        exit;
     }
+
+    // Jika tidak cocok sebagai admin maupun user
+    $_SESSION['error'] = "Username atau password salah!";
+    header("Location: login.php");
+    exit;
+
 } else {
-    // Ganti kode HTTP agar tidak dianggap "OK" jika bukan POST
+    // Jika bukan POST method
     http_response_code(405);
-    echo "Method Not Allowed - Hanya menerima POST.";
+    echo "Method Not Allowed";
     exit;
 }
-

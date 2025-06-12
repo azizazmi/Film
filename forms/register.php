@@ -55,31 +55,37 @@ session_start();
         <div class="col-lg-5 col-md-8">
           <div class="card shadow-lg p-4 rounded-4 border-0 bg-dark text-light">
             <div class="card-body">
-              <h3 class="text-center mb-4">Login</h3>
+              <h3 class="text-center mb-4">Register</h3>
 
-              <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-danger" role="alert">
-                  <?= htmlspecialchars($_SESSION['error']) ?>
-                </div>
+
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['error']) ?></div>
                 <?php unset($_SESSION['error']); ?>
               <?php endif; ?>
 
-              <form action="proses_login.php" method="post">
+              <?php if (isset($_SESSION['success'])): ?>
+                <div class="alert alert-success"><?= htmlspecialchars($_SESSION['success']) ?></div>
+                <?php unset($_SESSION['success']); ?>
+              <?php endif; ?>
+
+              <form action="proses_register.php" method="post">
                 <div class="form-group mb-3">
                   <label for="username" class="form-label">Username</label>
-                  <input type="text" name="username" class="form-control rounded-3 bg-secondary text-light border-0" id="username" required>
+                  <input type="text" name="username" class="form-control rounded-3 bg-secondary text-light border-0" required>
                 </div>
                 <div class="form-group mb-4">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" name="password" class="form-control rounded-3 bg-secondary text-light border-0" id="password" required>
+                  <input type="password" name="password" class="form-control rounded-3 bg-secondary text-light border-0" required>
                 </div>
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-outline-success btn-sm px-3 py-1 me-2 rounded-3">Login</button>
+                  <button type="submit" class="btn btn-outline-primary rounded-3">Register</button>
+                  
                 </div>
               </form>
+
               <div class="text-center mt-3">
-                Belum punya akun? <a href="register.php" class="text-info text-decoration-none">Register sekarang</a>
-            </div>
+                Sudah punya akun? <a href="login.php" class="text-info text-decoration-none">Login</a>
+              </div>
             </div>
           </div>
         </div>
