@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 4. Ganti gambar jika ada upload baru
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir  = '../../assets/img/';
+        $uploadDir  = '../../assets/img/aset/';
         $imageName  = basename($_FILES['image']['name']);
         $uploadPath = $uploadDir . $imageName;
         if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="card-body">
 
             <h2>Edit Film</h2>
-            <form method="POST">
+            <enctype="multipart/form-data">
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Judul Film</label>
                     <div class="col-sm-9">
@@ -178,13 +178,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label">URL Gambar</label>
+                <label class="col-sm-3 col-form-label">Gambar Saat Ini</label>
                     <div class="col-sm-9">
-                    <input type="file" name="image" class="form-control"
-                            value="<?= htmlspecialchars($data['image']) ?>">
+                        <?php if (!empty($data['image'])): ?>
+                        <img src="../../assets/img/aset/<?= htmlspecialchars($data['image']) ?>" alt="Poster Film" class="img-thumbnail" width="200">
+                        <?php else: ?>
+                        <p class="text-muted">Belum ada gambar.</p>
+                        <?php endif; ?>
                     </div>
                 </div>
 
+                
+                
                 <div class="row mb-4">
                     <label class="col-sm-3 col-form-label">URL Video</label>
                     <div class="col-sm-9">

@@ -59,7 +59,7 @@ if (isset($_GET['hapus'])) {
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-      <a href="../index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="../index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <i class="bi bi-camera"></i>
@@ -68,6 +68,7 @@ if (isset($_GET['hapus'])) {
 
       <nav id="navmenu" class="navmenu">
         <ul>
+          <a href="../../index.php" class="btn btn-outline-success btn-sm px-3 py-1 me-2">Logout</a>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -94,34 +95,10 @@ if (isset($_GET['hapus'])) {
           />
           <button type="submit" class="btn btn-outline-success ms-2">Cari</button>
         </form>
+        
     </div>
-
-    <!-- Form Tambah Film (hidden by default) -->
-    <form id="formTambah" action="tambah.php" method="POST" class="mb-4" enctype="multipart/form-data" style="display:none;">
-        <div class="row g-2">
-        <div class="col-md-4">
-            <input type="text" name="judul" class="form-control" placeholder="Judul Film" required />
-        </div>
-        <div class="col-md-4">
-            <input type="text" name="deskripsi" class="form-control" placeholder="Deskripsi" required />
-        </div>
-        <div class="col-md-2">
-            <input type="number" name="rating" class="form-control" placeholder="Rating" min="0" max="10" required />
-        </div>
-        <div class="col-md-6 mt-2">
-            <input type="text" name="image" class="form-control" placeholder="URL Gambar" />
-        </div>
-        <div class="col-md-6 mt-2">
-            <input type="text" name="video" class="form-control" placeholder="URL Video" />
-        </div>
-        <div class="col-md-12 mt-3">
-            <button type="submit" class="btn btn-outline-success">Tambah Film</button>
-        </div>
-        </div>
-    </form>
-
     <!-- Tabel Film -->
-    <table class="table table-bordered table-striped">
+    <table class="table table-dark table-sm">
         <thead>
         <tr>
             <th>No</th>
@@ -148,7 +125,7 @@ if (isset($_GET['hapus'])) {
 
             // Tampilkan gambar jika ada
             if (!empty($row['image'])) {
-                echo "<td><img src='" . htmlspecialchars($row['image']) . "' alt='gambar' style='max-width:100px;'></td>";
+                echo "<td><img src='../../assets/img/aset/" . htmlspecialchars($row['image']) . "' alt='gambar' style='max-width:100px;'></td>";
             } else {
                 echo "<td>-</td>";
             }

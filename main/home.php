@@ -4,6 +4,23 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
     header("Location: login.php");
     exit;
 }
+
+// --- BAGIAN BARU: KONEKSI DATABASE & AMBIL DATA FILM ---
+include '../forms/db.php'; // Sesuaikan path jika db_connect.php ada di direktori lain
+
+$film = [];
+// Pastikan nama tabel dan kolom sesuai dengan database Anda
+$sql = "SELECT id_film, judul, image, video FROM film ORDER BY id_film DESC"; // Mengambil film terbaru dulu
+$result = $conn->query($sql);
+
+if ($result && $result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $film[] = $row;
+    }
+}
+$conn->close(); // Tutup koneksi setelah selesai mengambil data
+// --- AKHIR BAGIAN BARU ---
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +67,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-      <a href="home.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="../index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <i class="bi bi-camera"></i>
@@ -76,7 +93,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
           </div>
         </form>
         <div class="d-flex align-items-center">
-          <a href="form/logout.php" class="btn btn-outline-success btn-sm px-3 py-1 me-2">Logout</a>
+          <a href="../index.php" class="btn btn-outline-success btn-sm px-3 py-1 me-2">Logout</a>
         </div>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -121,99 +138,34 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
     <!-- /Hero Section -->
 
     <!-- Gallery Section -->
-    <section id="gallery" class="gallery section">
+<!-- Film Gallery -->
+<section id="gallery" class="gallery section">
+  <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4 justify-content-center">
 
-      <div class="container-fluid" data-aos="fade-up" data-aos-delay="100" >
-
-        <div class="row gy-4 justify-content-center">
-
+      <?php if (empty($film)): ?>
+        <p class="text-center text-muted">Tidak ada film yang tersedia saat ini.</p>
+      <?php else: ?>
+        <?php foreach ($film as $f): ?>
           <div class="col-xl-3 col-lg-4 col-md-6">
             <div class="gallery-item h-100">
-              <img src="../assets/img/aset/danur.jpg" class="img-fluid fixed-size-img" alt="danur">
+              <img src="../assets/img/aset/<?= htmlspecialchars($f['image']) ?>" class="img-fluid" alt="<?= htmlspecialchars($f['judul']) ?>">
               <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="https://youtu.be/9EsGdyVx6HM?si=U5ikJ8wYRxfyJDkN" title="Danur 3" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                <a href="<?= htmlspecialchars($f['video']) ?>" class="glightbox preview-link" title="Trailer <?= htmlspecialchars($f['judul']) ?>">
+                  <i class="bi bi-play-circle"></i>
+                </a>
+                <a href="about.php?id=<?= htmlspecialchars($f['id_film']) ?>" class="details-link">
+                  <i class="bi bi-info-circle"></i>
+                </a>
               </div>
             </div>
           </div>
-          <!-- End Gallery Item -->
+        <?php endforeach; ?>
+      <?php endif; ?>
 
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="../assets/img/aset/evil dead rise.jpg" class="img-fluid fixed-size-img" alt="Evil Dead Rise">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="https://youtu.be/smTK_AeAPHs?si=Inj-arNLY9WdVO5y" title="Evil Dead Rise" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="../assets/img/aset/kemah terlarang.jpg" class="img-fluid fixed-size-img" alt="kemah terlarang">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="https://youtu.be/vjNwV4Wx5O0?si=btl5zJLsQHMLx6If" title="Kemah Terlarang" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="../assets/img/aset/home sweet loan.jpg" class="img-fluid fixed-size-img" alt="home sweet loan">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="https://youtu.be/rWsnLS0Q7G0?si=chsfs369iv61rGIa" title="Home Sweet Loan" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="../assets/img/aset/kakabos.jpg" class="img-fluid fixed-size-img" alt="kakabos">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="https://youtu.be/LXRnwwpXz6s?si=uXqDxjMffYfMesbY" title="KakaBos" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="../assets/img/aset/mirachel in cell no 7.jpg" class="img-fluid fixed-size-img" alt="mirachel in cell no 7">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="https://youtu.be/0uf6QUacVgs?si=2ekVPLRK9oCivUVl" title="Mirache In Cell No 7" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="../assets/img/aset/under paris.jpg" class="img-fluid fixed-size-img"  style="height: 200px; object-fit: cover;" alt="Under Paris">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="https://youtu.be/jnCefPQIH98?si=wyXtw1NI-lr0uAxr" title="Under Paris" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="../assets/img/aset/hijack.png" class="img-fluid fixed-size-img" alt="Hijack 1971">
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="https://youtu.be/UxyutkXQnvA?si=VnaJV9OLQTcrOrsp" title="Hijack 1971" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="about.php" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div><!-- End Gallery Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Gallery Section -->
-
+    </div>
+  </div>
+</section>
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
 

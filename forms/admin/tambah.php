@@ -1,7 +1,15 @@
 <?php
+session_start();
 include '../db.php';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    echo "<script>alert('Akses ditolak!')</script>";
+    exit;
+}
+
+
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $judul = $_POST['judul'];
      $deskripsi = $_POST['deskripsi'];
      $rating = $_POST['rating'];
@@ -13,11 +21,33 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pemeran = $_POST['pemeran'];
     $kutipan = $_POST['kutipan'];
 
-    $uploadDir = '../../assets/img/aset';
-    $imageName = basename($_FILES['image']['name']);
-    $uploadPath = $uploadDir . $imageName;
 
-    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) 
+    // Validasi file gambar
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $imageName = $_FILES['image']['name'];
+        $imageTmp = $_FILES['image']['tmp_name'];
+        $imageSize = $_FILES['image']['size'];
+        $imageExt = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
+
+        // Batasi ekstensi
+        $allowedExt = ['jpg', 'jpeg', 'png', 'gif'];
+        if (!in_array($imageExt, $allowedExt)) {
+            echo "Ekstensi gambar tidak didukung!";
+            exit;
+        }
+
+        // Batasi ukuran file max 2MB
+        if ($imageSize > 20 * 1024 * 1024) {
+            echo "Ukuran gambar terlalu besar (maks 20MB)";
+            exit;
+        }
+
+        // Simpan gambar
+        $uploadDir = '../../assets/img/aset/';
+        $newImageName = uniqid('film_') . '.' . $imageExt;
+        $uploadPath = $uploadDir . $newImageName;
+
+    if (move_uploaded_file($imageTmp, $uploadPath)) 
     {
 
         $query = "INSERT INTO film (judul, deskripsi, rating, genre, durasi, tahun, sutradara, pemeran, kutipan, image, video)
@@ -37,6 +67,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     {
         echo "Upload gambar gagal.";
     }
+}else {
+     echo "Tidak ada file gambar yang diupload atau terjadi error.";
+}
 }
 ?>
 
@@ -80,7 +113,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="card shadow-lg p-4 rounded-4 border-0 bg-dark text-light">
             <div class="card-body">
                 <h2>Tambah Film</h2>
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Judul Film</label>
                         <div class="col-sm-9">
