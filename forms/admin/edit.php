@@ -1,28 +1,66 @@
 <?php
 include '../db.php';
 
-$id = $_GET['id']; // ambil ID dari URL
-$query = mysqli_query($conn, "SELECT * FROM film WHERE id_film = $id");
-$data = mysqli_fetch_assoc($query);
+// 1. Ambil ID dari URL dan pastikan integer
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die("ID film tidak valid.");
+}
+$id = intval($_GET['id']);
 
-// Jika form disubmit
+// 2. Ambil data film dari database
+$q = mysqli_query($conn, "SELECT * FROM film WHERE id_film = $id");
+if (!$q || mysqli_num_rows($q) === 0) {
+    die("Film dengan ID $id tidak ditemukan.");
+}
+$data = mysqli_fetch_assoc($q);
+
+// 3. Proses saat form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $judul = $_POST['judul'];
-    $deskripsi = $_POST['deskripsi'];
-    $rating = $_POST['rating'];
-    $image = $_POST['image'];
-    $video = $_POST['video'];
+    // Gunakan escape untuk mencegah SQL Injection
+    $judul     = mysqli_real_escape_string($conn, $_POST['judul']);
+    $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
+    $rating    = floatval($_POST['rating']);
+    $video     = mysqli_real_escape_string($conn, $_POST['video']);
+    $genre     = mysqli_real_escape_string($conn, $_POST['genre']);
+    $durasi    = mysqli_real_escape_string($conn, $_POST['durasi']);
+    $tahun     = intval($_POST['tahun']);
+    $sutradara = mysqli_real_escape_string($conn, $_POST['sutradara']);
+    $pemeran   = mysqli_real_escape_string($conn, $_POST['pemeran']);
+    $kutipan   = mysqli_real_escape_string($conn, $_POST['kutipan']);
 
-    $update = mysqli_query($conn, "UPDATE film SET 
-        judul = '$judul', 
-        deskripsi = '$deskripsi', 
-        rating = '$rating',
-        image = '$image',
-        video = '$video' 
-        WHERE id_film = $id");
+    // 4. Ganti gambar jika ada upload baru
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir  = '../../assets/img/';
+        $imageName  = basename($_FILES['image']['name']);
+        $uploadPath = $uploadDir . $imageName;
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) {
+            $imageField = ", image = '$imageName'";
+        } else {
+            echo "<p style='color:red;'>Gagal upload gambar.</p>";
+            $imageField = "";
+        }
+    } else {
+        $imageField = ""; // Gambar tidak diupdate
+    }
 
-    if ($update) {
-        echo "<script>alert('Berhasil diupdate'); window.location='admin_dashboard.php';</script>";
+    // 5. Jalankan query UPDATE
+    $sql = "UPDATE film SET
+        judul = '$judul',
+        deskripsi = '$deskripsi',
+        rating = $rating,
+        genre = '$genre',
+        durasi = '$durasi',
+        tahun = $tahun,
+        sutradara = '$sutradara',
+        pemeran = '$pemeran',
+        kutipan = '$kutipan',
+        video = '$video'
+        $imageField
+        WHERE id_film = $id";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "<script>alert('Data berhasil diperbarui!'); window.location='admin_dashboard.php';</script>";
+        exit;
     } else {
         echo "Gagal update: " . mysqli_error($conn);
     }
@@ -61,31 +99,110 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- Main CSS File -->
   <link href="../../assets/css/main.css" rel="stylesheet">
 </head>
-<body class="container mt-4">
-    <h2>Edit Film</h2>
-    <form method="POST">
-        <div class="mb-3">
-            <label>Judul</label>
-            <input type="text" name="judul" class="form-control" value="<?= htmlspecialchars($data['judul']) ?>" required>
+<main class="main">
+  <section class="login-section d-flex align-items-center justify-content-center">
+    <div class="container">
+          <div class="card shadow-lg p-4 rounded-4 border-0 bg-dark text-light">
+            <div class="card-body">
+
+            <h2>Edit Film</h2>
+            <form method="POST">
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Judul Film</label>
+                    <div class="col-sm-9">
+                    <input type="text" name="judul" class="form-control"
+                            value="<?= htmlspecialchars($data['judul']) ?>" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Deskripsi</label>
+                    <div class="col-sm-9">
+                    <textarea name="deskripsi" class="form-control" rows="3" required><?= htmlspecialchars($data['deskripsi']) ?></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Rating</label>
+                    <div class="col-sm-9">
+                    <input type="number" name="rating" class="form-control" min="0" max="10" step="0.1"
+                            value="<?= htmlspecialchars($data['rating']) ?>" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Genre</label>
+                    <div class="col-sm-9">
+                    <input type="text" name="genre" class="form-control"
+                            value="<?= htmlspecialchars($data['genre']) ?>" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Durasi</label>
+                    <div class="col-sm-9">
+                    <input type="text" name="durasi" class="form-control"
+                            value="<?= htmlspecialchars($data['durasi']) ?>" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Tahun</label>
+                    <div class="col-sm-9">
+                    <input type="number" name="tahun" class="form-control" min="1900" max="2099"
+                            value="<?= htmlspecialchars($data['tahun']) ?>" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Sutradara</label>
+                    <div class="col-sm-9">
+                    <input type="text" name="sutradara" class="form-control"
+                            value="<?= htmlspecialchars($data['sutradara']) ?>">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Pemeran</label>
+                    <div class="col-sm-9">
+                    <textarea name="pemeran" class="form-control" rows="2"><?= htmlspecialchars($data['pemeran']) ?></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Kutipan</label>
+                    <div class="col-sm-9">
+                    <input type="text" name="kutipan" class="form-control"
+                            value="<?= htmlspecialchars($data['kutipan']) ?>">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">URL Gambar</label>
+                    <div class="col-sm-9">
+                    <input type="file" name="image" class="form-control"
+                            value="<?= htmlspecialchars($data['image']) ?>">
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <label class="col-sm-3 col-form-label">URL Video</label>
+                    <div class="col-sm-9">
+                    <input type="text" name="video" class="form-control"
+                            value="<?= htmlspecialchars($data['video']) ?>">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="offset-sm-3 col-sm-9 d-flex gap-2">
+                    <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                    <a href="admin_dashboard.php" class="btn btn-secondary">Batal</a>
+                    </div>
+                </div>
+                </form>
+
         </div>
-        <div class="mb-3">
-            <label>Deskripsi</label>
-            <input type="text" name="deskripsi" class="form-control" value="<?= htmlspecialchars($data['deskripsi']) ?>" required>
-        </div>
-        <div class="mb-3">
-            <label>Rating</label>
-            <input type="number" name="rating" class="form-control" value="<?= htmlspecialchars($data['rating']) ?>" min="0" max="10" required>
-        </div>
-        <div class="mb-3">
-            <label>URL Gambar</label>
-            <input type="text" name="image" class="form-control" value="<?= htmlspecialchars($data['image']) ?>">
-        </div>
-        <div class="mb-3">
-            <label>URL Video</label>
-            <input type="text" name="video" class="form-control" value="<?= htmlspecialchars($data['video']) ?>">
-        </div>
-        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-        <a href="admin_dashboard.php" class="btn btn-secondary">Batal</a>
-    </form>
+      </div>
+    </div>
 </body>
 </html>

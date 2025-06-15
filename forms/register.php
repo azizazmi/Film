@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <header id="header" class="header d-flex align-items-center sticky-top">
   <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
-    <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+    <a href="../index.php" class="logo d-flex align-items-center me-auto me-xl-0">
       <i class="bi bi-camera"></i>
       <h1 class="sitename">NontonApa</h1>
     </a>
@@ -82,10 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </header>
 
 <main class="main">
-  <section class="section d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+  <section class="login-section d-flex align-items-center justify-content-center" style="min-height: 80vh;">
     <div class="container" data-aos="fade-up">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-8">
           <div class="card shadow-lg p-4 rounded-4 border-0 bg-dark text-light">
             <div class="card-body">
               <h3 class="text-center mb-4">Register</h3>
@@ -94,17 +92,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <form method="POST">
                   <div class="mb-3">
                       <label>Email</label>
-                      <input type="email" name="email" required class="form-control">
+                      <input type="email" id="email" name="email" required class="form-control">
                   </div>
                   <div class="mb-3">
                       <label>Username</label>
-                      <input type="text" name="username" required class="form-control">
+                      <input type="text" id="username" name="username" required class="form-control">
                   </div>
                   <div class="mb-3">
                       <label>Password</label>
-                      <input type="password" name="password" required class="form-control">
+                      <input type="password" id="password" name="password" required class="form-control">
+                  <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-success">Register</button>
                   </div>
-                  <button class="btn btn-outline-success btn-sm px-3 py-1 me-2">Register</button>
               </form>
 
               <div class="text-center mt-3">
@@ -112,8 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </div>
   </section>
 </main>

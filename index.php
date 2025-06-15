@@ -51,6 +51,7 @@ session_start();
       <nav id="navmenu" class="navmenu">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
           <a href="forms/login.php" class="btn btn-outline-success btn-sm px-3 py-1 me-2">Login</a>
+          <a href="forms/register.php" class="btn btn-outline-success btn-sm px-3 py-1 me-2">Register</a>
         </div>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -69,13 +70,22 @@ session_start();
                   Temukan tontonan favoritmu di satu tempat.
                   Update terus, pilihan lengkap, semua untuk kamu.
                 </p>
-              <a href="form/login" class="cta-btn">Gabung sekarang<br></a>
+              <a href="forms/login.php" class="cta-btn">Gabung sekarang<br></a>
             </div>
           </div>
         </div>
       </div>
     </div><!-- End Page Title -->
   </main>
+  
+  <footer id="footer" class="footer">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">PhotoFolio</strong> <span>All Rights Reserved</span></p>
+      </div>
+    </div>
+  </footer>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

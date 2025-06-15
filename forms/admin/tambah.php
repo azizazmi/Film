@@ -1,20 +1,41 @@
 <?php
 include '../db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $judul = $_POST['judul'];
-    $deskripsi = $_POST['deskripsi'];
-    $rating = $_POST['rating'];
-    $image = $_POST['image'];
-    $video = $_POST['video'];
+     $deskripsi = $_POST['deskripsi'];
+     $rating = $_POST['rating'];
+     $video = $_POST['video'];
+    $genre = $_POST['genre'];
+     $durasi = $_POST['durasi'];
+    $tahun = $_POST['tahun'];
+    $sutradara = $_POST['sutradara'];
+    $pemeran = $_POST['pemeran'];
+    $kutipan = $_POST['kutipan'];
 
-    $query = "INSERT INTO film (judul, deskripsi, rating, image, video) VALUES ('$judul', '$deskripsi', '$rating', '$image', '$video')";
+    $uploadDir = '../../assets/img/aset';
+    $imageName = basename($_FILES['image']['name']);
+    $uploadPath = $uploadDir . $imageName;
 
-    if (mysqli_query($conn, $query)) {
-        header("Location: admin_dashboard.php"); // kembali ke dashboard admin
-        exit;
-    } else {
-        echo "Gagal menyimpan data: " . mysqli_error($conn);
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadPath)) 
+    {
+
+        $query = "INSERT INTO film (judul, deskripsi, rating, genre, durasi, tahun, sutradara, pemeran, kutipan, image, video)
+                VALUES ('$judul', '$deskripsi', '$rating', '$genre', '$durasi', '$tahun', '$sutradara', '$pemeran', '$kutipan', '$imageName', '$video')";
+
+        if (mysqli_query($conn, $query))
+        {
+            header("Location: admin_dashboard.php");
+            exit;
+        }
+        else
+        {
+            echo "Gagal menyimpan data: " . mysqli_error($conn);
+        }
+    } 
+    else 
+    {
+        echo "Upload gambar gagal.";
     }
 }
 ?>
@@ -53,32 +74,100 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link href="../../assets/css/main.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
-    <h2>Tambah Film</h2>
-    <form method="POST" action="">
-        <div class="mb-3">
-            <label>Judul Film</label>
-            <input type="text" name="judul" class="form-control" required>
+<main class="main">
+  <section class="login-section d-flex align-items-center justify-content-center">
+    <div class="container">
+          <div class="card shadow-lg p-4 rounded-4 border-0 bg-dark text-light">
+            <div class="card-body">
+                <h2>Tambah Film</h2>
+                <form method="POST">
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Judul Film</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="judul" class="form-control" placeholder="Contoh: Danur 3" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Deskripsi</label>
+                        <div class="col-sm-9">
+                        <textarea name="deskripsi" class="form-control" rows="3" placeholder="Ringkasan film..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Rating</label>
+                        <div class="col-sm-9">
+                        <input type="number" name="rating" class="form-control" min="0" max="10" step="0.1" placeholder="Contoh: 7.5" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Genre</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="genre" class="form-control" placeholder="Contoh: Horor, Thriller" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Durasi</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="durasi" class="form-control" placeholder="Contoh: 1h 45m" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Tahun</label>
+                        <div class="col-sm-9">
+                        <input type="number" name="tahun" class="form-control" min="1900" max="2099" placeholder="Contoh: 2023" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Sutradara</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="sutradara" class="form-control" placeholder="Contoh: Awi Suryadi">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Pemeran</label>
+                        <div class="col-sm-9">
+                        <textarea name="pemeran" class="form-control" rows="2" placeholder="Contoh: Prilly Latuconsina, Rizky Nazar"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Kutipan</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="kutipan" class="form-control" placeholder="Contoh: 'Sunyaruri bukan tempat untuk manusia…'">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">URL Gambar</label>
+                        <div class="col-sm-9">
+                        <input type="File" name="image" class="form-control" placeholder="Choose file">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <label class="col-sm-3 col-form-label">URL Video</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="video" class="form-control" placeholder="Contoh: https://youtube.com/watch?v=12345">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="offset-sm-3 col-sm-9 d-flex gap-2">
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                        <a href="admin_dashboard.php" class="btn btn-secondary">Kembali</a>
+                        </div>
+                    </div>
+                    </form>
+
         </div>
-        <div class="mb-3">
-            <label>Deskripsi</label>
-            <input type="text" name="deskripsi" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label>Rating</label>
-            <input type="number" name="rating" class="form-control" min="0" max="10" required>
-        </div>
-        <div class="mb-3">
-            <label>URL Gambar</label>
-            <input type="text" name="image" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>URL Video</label>
-            <input type="text" name="video" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="admin_dashboard.php" class="btn btn-secondary">Kembali</a>
-    </form>
-</div>
+      </div>
+    </div>
 </body>
 </html>

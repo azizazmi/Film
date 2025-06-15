@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta name="keywords" content="">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 
   <!-- Favicons -->
   <link href="../assets/img/favicon.png" rel="icon">
@@ -58,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
 
   <!-- Main CSS File -->
   <link href="../assets/css/main.css" rel="stylesheet">
@@ -75,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-      <a href="home.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="../index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <i class="bi bi-camera"></i>
@@ -91,14 +93,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <main class="main">
   <section class="login-section d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-8">
           <div class="card shadow-lg p-4 rounded-4 border-0 bg-dark text-light">
             <div class="card-body">
               <h3 class="text-center mb-4">Login</h3>
               
               <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
-
+              
               <form method="POST">
                 <div class="mb-3">
                   <label for="username" class="form-label">Username</label>
@@ -119,8 +119,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Belum punya akun? <a href="register.php" class="text-info text-decoration-none">Register sekarang</a>
               </div>
             </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
