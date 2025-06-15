@@ -5,7 +5,7 @@ Template URL: https://bootstrapmade.com/photofolio-bootstrap-photography-website
 Author: BootstrapMade.com
 License: https://bootstrapmade.com/license/
 
-# Anggota Kelompok
+Anggota Kelompok :
 Hanifatul Nadiva (20230140203)
 Nayla Salwa 
 Azizah Aurellia Azmi (20230140234)
