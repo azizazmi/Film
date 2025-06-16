@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="card-body">
 
             <h2>Edit Film</h2>
-            <enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Judul Film</label>
                     <div class="col-sm-9">
@@ -188,8 +188,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
 
-                
-                
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">Ganti Gambar</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="image" accept="image/*" class="form-control">
+                    </div>
+                </div>
+
                 <div class="row mb-4">
                     <label class="col-sm-3 col-form-label">URL Video</label>
                     <div class="col-sm-9">
