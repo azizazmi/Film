@@ -209,13 +209,10 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                </p>
+                <img src="/Film/assets/img/aset/sekawan limo.jpg" alt="SL">
                 <div class="profile mt-auto">
-                  <img src="../assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                  <h3>Saul Goodman</h3>
-                  <h4>Ceo &amp; Founder</h4>
+                  <h3>Sekawan Limo</h3>
+                  <h4>Horor &amp; Komedi</h4>
                 </div>
               </div>
             </div><!-- End testimonial item -->
@@ -225,13 +222,10 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                </p>
+                <img src="https://upload.wikimedia.org/wikipedia/id/0/0f/Poster_Home_Sweet_Loan.jpg" alt="HSL">
                 <div class="profile mt-auto">
-                  <img src="../assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
+                  <h3>Home Sweet Loan</h3>
+                  <h4>Family</h4>
                 </div>
               </div>
             </div><!-- End testimonial item -->
@@ -241,13 +235,10 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                </p>
+                <img src="https://upload.wikimedia.org/wikipedia/id/9/98/Imperfect_Karier%2C_Cinta_%26_Timbangan_poster.jpeg" alt="IMP">
                 <div class="profile mt-auto">
-                  <img src="../assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                  <h3>Jena Karlis</h3>
-                  <h4>Store Owner</h4>
+                  <h3>Imperfect</h3>
+                  <h4>Romance</h4>
                 </div>
               </div>
             </div><!-- End testimonial item -->
@@ -257,13 +248,10 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                </p>
+                <img src="/Film/assets//img//aset/thriller.webp" alt="BI">
                 <div class="profile mt-auto">
-                  <img src="../assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                  <h3>Matt Brandon</h3>
-                  <h4>Freelancer</h4>
+                  <h3>Bangsal Isolasi</h3>
+                  <h4>Thriller</h4>
                 </div>
               </div>
             </div><!-- End testimonial item -->
@@ -273,13 +261,10 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <p>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                </p>
+                <img src="https://awsimages.detik.net.id/community/media/visual/2024/09/30/poster-film-kemah-terlarang-kesurupan-massal.jpeg?w=1200" alt="KT">
                 <div class="profile mt-auto">
-                  <img src="../assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                  <h3>John Larson</h3>
-                  <h4>Entrepreneur</h4>
+                  <h3>Kemah Terlarang</h3>
+                  <h4>Horor</h4>
                 </div>
               </div>
             </div><!-- End testimonial item -->
