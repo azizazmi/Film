@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="card-body">
 
             <h2>Edit Film</h2>
-            <enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Judul Film</label>
                     <div class="col-sm-9">
