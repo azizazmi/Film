@@ -14,8 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "Username sudah digunakan!";
         } else {
 
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
             $conn->query("INSERT INTO users (email, username, password, role)
-                          VALUES ('$email', '$username', '$password', 'user')");
+                          VALUES ('$email', '$username', '$hashedPassword', 'user')");
+
 
             header("Location: login.php");
             exit;

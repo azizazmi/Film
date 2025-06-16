@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
 
         // Verifikasi password yang di-hash
-        if ($password == $row['password']){
+        if (password_verify($password, $row['password'])){
             $_SESSION['username'] = $row['username'];
             $_SESSION['role'] = $row['role'];
 
