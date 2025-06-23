@@ -209,7 +209,7 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <img src="/Film/assets/img/aset/sekawan limo.jpg" alt="SL">
+                <img src="../assets/img/aset/sekawan limo.jpg" alt="SL">
                 <div class="profile mt-auto">
                   <h3>Sekawan Limo</h3>
                   <h4>Horor &amp; Komedi</h4>
@@ -248,7 +248,7 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
-                <img src="/Film/assets//img//aset/thriller.webp" alt="BI">
+                <img src="../assets//img//aset/thriller.webp" alt="BI">
                 <div class="profile mt-auto">
                   <h3>Bangsal Isolasi</h3>
                   <h4>Thriller</h4>
