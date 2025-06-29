@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <header id="header" class="header d-flex align-items-center sticky-top">
   <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
     <a href="../index.php" class="logo d-flex align-items-center me-auto me-xl-0">
-      <i class="bi bi-camera"></i>
+      <i class="bi bi-film"></i>
       <h1 class="sitename">NontonApa</h1>
     </a>
     <nav id="navmenu" class="navmenu">
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <footer id="footer" class="footer">
   <div class="container">
     <div class="copyright text-center">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">PhotoFolio</strong> <span>All Rights Reserved</span></p>
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">NontonApa</strong> <span>All Rights Reserved</span></p>
       <div class="credits">Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a></div>
     </div>
   </div>

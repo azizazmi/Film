@@ -70,7 +70,7 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
       <a href="../index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <i class="bi bi-camera"></i>
+        <i class="bi bi-film"></i>
         <h1 class="sitename">NontonApa</h1>
       </a>
 
@@ -140,7 +140,11 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
     <!-- Gallery Section -->
 <!-- Film Gallery -->
 <section id="gallery" class="gallery section">
+  
   <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+    <div class="container section-title" data-aos="fade-up">
+      <p>Rekomendasi Film</p>
+    </div>
     <div class="row gy-4 justify-content-center">
       <?php if (empty($film)): ?>
         <p class="text-center text-muted">Tidak ada film yang tersedia saat ini.</p>
@@ -171,7 +175,6 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <p>Rating Film</p>
-        <h2></h2>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -283,7 +286,7 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
 
     <div class="container">
       <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">PhotoFolio</strong> <span>All Rights Reserved</span></p>
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">NontonApa</strong> <span>All Rights Reserved</span></p>
       </div>
     </div>
   </footer>

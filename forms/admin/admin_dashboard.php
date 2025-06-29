@@ -62,7 +62,7 @@ if (isset($_GET['hapus'])) {
       <a href="../index.php" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <i class="bi bi-camera"></i>
+        <i class="bi bi-film"></i>
         <h1 class="sitename">NontonApa</h1>
       </a>
 
@@ -160,7 +160,7 @@ if (isset($_GET['hapus'])) {
   <footer id="footer" class="footer">
     <div class="container">
       <div class="copyright text-center">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">PhotoFolio</strong> <span>All Rights Reserved</span></p>
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">NontonApa</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
         Designed by <a href="../../https://bootstrapmade.com/">BootstrapMade</a>
       </div>
