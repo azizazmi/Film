@@ -142,9 +142,6 @@ $conn->close(); // Tutup koneksi setelah selesai mengambil data
 <section id="gallery" class="gallery section">
   
   <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-    <div class="container section-title" data-aos="fade-up">
-      <p>Rekomendasi Film</p>
-    </div>
     <div class="row gy-4 justify-content-center">
       <?php if (empty($film)): ?>
         <p class="text-center text-muted">Tidak ada film yang tersedia saat ini.</p>
